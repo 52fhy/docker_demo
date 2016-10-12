@@ -46,20 +46,20 @@ $ docker run --name some-wordpress -e WORDPRESS_DB_HOST=10.1.2.3:3306 \
 ```	
 
 更多环境变量：  
-> `WORDPRESS_DB_HOST` 数据库主机地址（默认为与其 link 的 mysql 容器的 IP 和 3306 端口：<mysql-ip>:3306）
-`WORDPRESS_DB_USER` 数据库用户名（默认为 root）
-`WORDPRESS_DB_PASSWORD` 数据库密码（默认为与其 link 的 mysql 容器提供的 MYSQL_ROOT_PASSWORD 变量的值）
-`WORDPRESS_DB_NAME` 数据库名（默认为 wordpress）
+> `WORDPRESS_DB_HOST` 数据库主机地址（默认为与其 link 的 mysql 容器的 IP 和 3306 端口：<mysql-ip>:3306）  
+`WORDPRESS_DB_USER` 数据库用户名（默认为 root）  
+`WORDPRESS_DB_PASSWORD` 数据库密码（默认为与其 link 的 mysql 容器提供的 MYSQL_ROOT_PASSWORD 变量的值）  
+`WORDPRESS_DB_NAME` 数据库名（默认为 wordpress）  
 `WORDPRESS_TABLE_PREFIX` 数据库表名前缀（默认为空，您可以从该变量覆盖 wp-config.php 中的配置）
-安全相关（默认为随机的 SHA1 值）
-`WORDPRESS_AUTH_KEY`
-`WORDPRESS_SECURE_AUTH_KEY`
-`WORDPRESS_LOGGED_IN_KEY`
-`WORDPRESS_NONCE_KEY`
-`WORDPRESS_AUTH_SALT`
-`WORDPRESS_SECURE_AUTH_SALT`
-`WORDPRESS_LOGGED_IN_SALT`
-`WORDPRESS_NONCE_SALT`
+安全相关（默认为随机的 SHA1 值）  
+- `WORDPRESS_AUTH_KEY`  
+- `WORDPRESS_SECURE_AUTH_KEY`  
+- `WORDPRESS_LOGGED_IN_KEY`  
+- `WORDPRESS_NONCE_KEY`  
+- `WORDPRESS_AUTH_SALT`  
+- `WORDPRESS_SECURE_AUTH_SALT`  
+- `WORDPRESS_LOGGED_IN_SALT`  
+- `WORDPRESS_NONCE_SALT`  
 
 如果 `WORDPRESS_DB_NAME` 变量指定的数据库不存在时，那么 `wordpress `容器在启动时就会自动尝试创建该数据库，但是由 `WORDPRESS_DB_USER `变量指定的用户需要有创建数据库的权限。  
 
