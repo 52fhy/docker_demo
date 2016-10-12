@@ -1,0 +1,8 @@
+wordpress: 
+  image: daocloud.io/daocloud/dao-wordpress:latest 
+  environment: 
+    - WORDPRESS_DB_HOST=119.119.112.246:3306
+    - WORDPRESS_DB_USER=root
+    - WORDPRESS_DB_PASSWORD=123456
+  ports: 
+    - "8002:80" 

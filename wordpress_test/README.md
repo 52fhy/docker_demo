@@ -101,7 +101,30 @@ fig up
 fig up -d
 ```
 
-然后就可以在浏览器通过 http://localhost:8002（或 http://host-ip:8002） 访问站点了。  
+然后就可以在浏览器通过 http://localhost:8002（或 http://host-ip:8002） 访问站点了。 
+
+### 使用外网
+```
+wordpress:
+  image: daocloud.io/daocloud/dao-wordpress:latest
+  environment:
+    - WORDPRESS_DB_HOST=119.119.192.246:3306
+    - WORDPRESS_DB_USER=root
+    - WORDPRESS_DB_PASSWORD=123456
+  ports:
+    - "8002:80"
+```   
+
+Fig命令：  
+```
+# 卸载Fig:
+pip uninstall fig
+
+# version:
+fig --version
+```
+
+注意：fig已升级为compose：https://github.com/docker/compose
 
 
 ## 批处理
