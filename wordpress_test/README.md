@@ -1,14 +1,17 @@
-# 使用Docker安装wordpress
+# Docker实践：安装wordpress
 
-docker镜像仓库：  
-官方：https://hub.docker.com  
-DaoCloud：https://hub.daocloud.io/  
-网易蜂巢镜像中心：https://c.163.com/hub#/m/home/  
+本例将示例如何使用Docker来安装wordpress。使用三种方法：
+1、基于官方的wordpress镜像使用`docker run`实现；
+2、基于官方的wordpress镜像使用fig命令编排工具实现。  
 
+>阅读本文您需要具备以下知识：  
+1、了解PHP和MySQL   
+2、熟练Docker基础知识（包括Dockerfile语法）  
+3、了解Docker应用编排工具Fig或者Compose  
 
-## 安装mysql容器
+## 安装mysql服务
 
-下载mysql镜像：  
+由于用到mysql数据库服务，我们先下载mysql镜像：  
 ```
 docker pull mysql
 ```
@@ -17,7 +20,6 @@ docker pull mysql
 ```
 docker run --name mysql_db -e MYSQL_ROOT_PASSWORD=123456 -d mysql
 ```
-
 
 ## 使用官方的wordpress
 
@@ -63,10 +65,13 @@ $ docker run --name some-wordpress -e WORDPRESS_DB_HOST=10.1.2.3:3306 \
 
 如果 `WORDPRESS_DB_NAME` 变量指定的数据库不存在时，那么 `wordpress `容器在启动时就会自动尝试创建该数据库，但是由 `WORDPRESS_DB_USER `变量指定的用户需要有创建数据库的权限。  
 
-Dockerfile仓库：https://github.com/docker-library/wordpress
-	
+Dockerfile仓库：https://github.com/docker-library/wordpress	
 	
 ## 使用Fig编排
+
+Fig是Docker的应用编排工具，主要用来跟 Docker 一起来构建基于 Docker 的复杂应用，Fig 通过一个配置文件来管理多个Docker容器，非常适合组合使用多个容器进行开发的场景。目前Fig已经升级并更名为Compose。Compose向下兼容Fig。  
+
+应用编排工具使得Docker应用管理更为方便快捷。 Fig网站：http://www.fig.sh/  
 
 安装Fig:
 ```
@@ -79,7 +84,7 @@ yum install python-pip python-dev
 pip install -U fig
 ```
 
-编写fig.yml：
+编写fig.yml：  
 ```
 wordpress:
   image: daocloud.io/daocloud/dao-wordpress:latest
@@ -95,6 +100,7 @@ db:
 
 部署应用：
 ```
+# 启动
 fig up
 
 # 启动并后台运行
@@ -102,6 +108,11 @@ fig up -d
 ```
 
 然后就可以在浏览器通过 http://localhost:8002（或 http://host-ip:8002） 访问站点了。 
+
+```
+fig logs 查看日志
+fig port 查看端口映射
+```
 
 ### 使用外网
 ```
@@ -112,11 +123,20 @@ wordpress:
     - WORDPRESS_DB_USER=root
     - WORDPRESS_DB_PASSWORD=123456
   ports:
-    - "8002:80"
+    - "80"
 ```   
 
 Fig命令：  
 ```
+# 停止
+fig stop
+
+# 查看日志
+fig logs 
+
+# 查看端口 
+fig port
+
 # 卸载Fig:
 pip uninstall fig
 
@@ -127,8 +147,18 @@ fig --version
 注意：fig已升级为compose：https://github.com/docker/compose
 
 
-## 批处理
+### 其它
+### 批处理脚本
 ```
 # 关闭所有正在运行容器
 docker ps | awk  '{print $1}' | xargs docker stop
+
+# 删除所有容器应用
+docker ps -a | awk  '{print $1}' | xargs docker rm
 ```
+
+### docker镜像仓库
+官方：https://hub.docker.com  
+DaoCloud：https://hub.daocloud.io/  
+网易蜂巢镜像中心：https://c.163.com/hub#/m/home/  
+

@@ -29,3 +29,4 @@ fig ps
 wordpresstest2_wordpress_1   /opt/adapter.sh /entrypoin ...   Up      0.0.0.0:32768->80/tcp 
 wordpresstest2_wordpress_2   /opt/adapter.sh /entrypoin ...   Up      0.0.0.0:32769->80/tcp 
 ```
+
