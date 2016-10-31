@@ -1,1 +1,1 @@
-docker build -t c6-php7-swoole:v1 .
+docker build -t c6-php7-swoole:latest .
