@@ -1,0 +1,21 @@
+version: '2'
+services:
+    web: 
+      build: ./
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      links:
+        - redis
+      ports: 
+        - "8002:80"
+        - "19443:9443"
+        - "19505:9505"
+        - "19902:9902"
+        - "19903:9903"
+        - "19905:9905"
+        - "19906:9906"
+      command: /bin/bash /run.sh
+
+    redis:
+       image: redis:3.2.5
+ 
